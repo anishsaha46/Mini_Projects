@@ -16,3 +16,18 @@ export const signup = async(name,email,password)=>{
         token: generateToken(user._id)
     };
 };
+
+export const login = async(email,password)=>{
+    const user = await User.findOne({email});
+    if(!user) return {error: "User not found"};
+
+    const isMatch = await bcrypt.compare(password,user.password);
+    if(!isMatch) return {error: "Invalid password"};
+
+    return {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        token: generateToken
+    };
+};
