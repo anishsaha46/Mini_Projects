@@ -109,3 +109,16 @@ enum MessageContentType {
   AUDIO
   FILE
 }
+
+model ReadReceipt {
+  id        String   @id @default(uuid())
+  userId    String
+  messageId String
+  readAt    DateTime @default(now())
+  
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, messageId])
+}
