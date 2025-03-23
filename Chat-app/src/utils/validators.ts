@@ -55,3 +55,12 @@ export const userSchema = z.object({
     isMuted: z.boolean(),
     isHidden: z.boolean(),
   });
+
+  export const friendRequestSchema = z.object({
+    id: z.string().uuid(),
+    senderId: z.string().uuid(),
+    receiverId: z.string().uuid(),
+    status: RequestStatusEnum,
+    createdAt: z.date(),
+    updatedAt: z.date(),
+  });
