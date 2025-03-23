@@ -128,3 +128,13 @@ export const conversationResponse = conversationSchema.extend({
   participants: z.array(participantSchema.extend({ user: userResponse })),
   messages: z.array(messageSchema),
 });
+
+
+// TypeScript types
+export type CreateUserInput = z.infer<typeof createUserInput>;
+export type CreateMessageInput = z.infer<typeof createMessageInput>;
+export type CreateConversationInput = z.infer<typeof createConversationInput>;
+export type CreateFriendRequestInput = z.infer<typeof createFriendRequestInput>;
+export type UserResponse = z.infer<typeof userResponse>;
+export type MessageResponse = z.infer<typeof messageResponse>;
+export type ConversationResponse = z.infer<typeof conversationResponse>;
