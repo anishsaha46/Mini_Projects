@@ -45,3 +45,13 @@ export const userSchema = z.object({
     createdAt: z.date(),
     updatedAt: z.date(),
   });
+
+  export const participantSchema = z.object({
+    userId: z.string().uuid(),
+    conversationId: z.string().uuid(),
+    role: ParticipantRoleEnum,
+    joinedAt: z.date(),
+    lastReadAt: z.date(),
+    isMuted: z.boolean(),
+    isHidden: z.boolean(),
+  });
