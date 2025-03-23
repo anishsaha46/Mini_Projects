@@ -87,3 +87,33 @@ export const userSchema = z.object({
     reason: z.string().nullable(),
     createdAt: z.date(),
   });
+
+  // Input Validators (for API requests)
+export const createUserInput = userSchema.omit({
+    id: true,
+    status: true,
+    lastActive: true,
+    createdAt: true,
+    updatedAt: true,
+  });
+  
+  export const createMessageInput = messageSchema.omit({
+    id: true,
+    isEdited: true,
+    createdAt: true,
+    updatedAt: true,
+  });
+  
+  export const createConversationInput = conversationSchema.omit({
+    id: true,
+    lastMessageAt: true,
+    createdAt: true,
+    updatedAt: true,
+  });
+  
+  export const createFriendRequestInput = friendRequestSchema.omit({
+    id: true,
+    status: true,
+    createdAt: true,
+    updatedAt: true,
+  });
