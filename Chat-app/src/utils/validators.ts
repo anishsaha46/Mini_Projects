@@ -72,3 +72,18 @@ export const userSchema = z.object({
     messageId: z.string().uuid(),
     createdAt: z.date(),
   });
+
+  export const friendSchema = z.object({
+    id: z.string().uuid(),
+    userId: z.string().uuid(),
+    friendId: z.string().uuid(),
+    createdAt: z.date(),
+  });
+  
+  export const blockedUserSchema = z.object({
+    id: z.string().uuid(),
+    blockerId: z.string().uuid(),
+    blockedId: z.string().uuid(),
+    reason: z.string().nullable(),
+    createdAt: z.date(),
+  });
