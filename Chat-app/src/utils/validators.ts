@@ -22,3 +22,14 @@ export const userSchema = z.object({
     updatedAt: z.date(),
   });
 
+  export const conversationSchema = z.object({
+    id: z.string().uuid(),
+    type: ConversationTypeEnum,
+    name: z.string().nullable(),
+    description: z.string().nullable(),
+    avatar: z.string().nullable(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
+    lastMessageAt: z.date(),
+    createdBy: z.string().nullable(),
+  });
