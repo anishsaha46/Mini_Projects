@@ -33,3 +33,15 @@ export const userSchema = z.object({
     lastMessageAt: z.date(),
     createdBy: z.string().nullable(),
   });
+
+  export const messageSchema = z.object({
+    id: z.string().uuid(),
+    content: z.string(),
+    contentType: MessageContentTypeEnum,
+    senderId: z.string().uuid(),
+    conversationId: z.string().uuid(),
+    replyToId: z.string().uuid().nullable(),
+    isEdited: z.boolean(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
+  });
