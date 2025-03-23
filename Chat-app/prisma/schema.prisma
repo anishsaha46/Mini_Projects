@@ -38,3 +38,19 @@ enum UserStatus {
   AWAY
   DO_NOT_DISTURB
 }
+
+model Conversation {
+  id           String   @id @default(uuid())
+  type         ConversationType @default(DIRECT)
+  name         String?  // For group chats
+  description  String?
+  avatar       String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  lastMessageAt DateTime @default(now())
+  createdBy    String?  // References userId
+  
+  // Relations
+  messages     Message[]
+  participants ParticipantsOnConversations[]
+}
