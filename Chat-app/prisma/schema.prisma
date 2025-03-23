@@ -54,3 +54,8 @@ model Conversation {
   messages     Message[]
   participants ParticipantsOnConversations[]
 }
+
+enum ConversationType {
+  DIRECT
+  GROUP
+}
