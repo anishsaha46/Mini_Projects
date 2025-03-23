@@ -64,3 +64,11 @@ export const userSchema = z.object({
     createdAt: z.date(),
     updatedAt: z.date(),
   });
+
+  export const messageReactionSchema = z.object({
+    id: z.string().uuid(),
+    emoji: z.string(),
+    userId: z.string().uuid(),
+    messageId: z.string().uuid(),
+    createdAt: z.date(),
+  });
