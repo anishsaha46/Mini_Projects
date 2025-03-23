@@ -31,3 +31,10 @@ model User {
   blockedUsers      BlockedUser[] @relation("Blocker")
   blockedBy         BlockedUser[] @relation("Blocked")
 }
+
+enum UserStatus {
+  ONLINE
+  OFFLINE
+  AWAY
+  DO_NOT_DISTURB
+}
