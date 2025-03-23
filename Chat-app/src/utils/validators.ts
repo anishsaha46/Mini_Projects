@@ -117,3 +117,14 @@ export const createUserInput = userSchema.omit({
     createdAt: true,
     updatedAt: true,
   });
+
+  // Response Types
+export const userResponse = userSchema.omit({ password: true });
+export const messageResponse = messageSchema.extend({
+  sender: userResponse,
+  reactions: z.array(messageReactionSchema),
+});
+export const conversationResponse = conversationSchema.extend({
+  participants: z.array(participantSchema.extend({ user: userResponse })),
+  messages: z.array(messageSchema),
+});
