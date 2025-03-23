@@ -82,3 +82,30 @@ enum ParticipantRole {
   MEMBER
 }
 
+model Message {
+  id             String   @id @default(uuid())
+  content        String
+  contentType    MessageContentType @default(TEXT)
+  senderId       String
+  conversationId String
+  replyToId      String?
+  isEdited       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  // Relations
+  sender         User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  replyTo        Message? @relation("ReplyToMessage", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies        Message[] @relation("ReplyToMessage")
+  readReceipts   ReadReceipt[]
+  reactions      MessageReaction[]
+}
+
+enum MessageContentType {
+  TEXT
+  IMAGE
+  VIDEO
+  AUDIO
+  FILE
+}
