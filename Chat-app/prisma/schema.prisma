@@ -164,3 +164,10 @@ model FriendRequest {
 
   @@unique([senderId, receiverId])
 }
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
