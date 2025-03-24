@@ -96,5 +96,33 @@ export class UserService {
           },
         });
       }
-  
+
+
+
+      async handleFriendRequest(requestId: string, status: RequestStatus): Promise<void> {
+        const request = await prisma.friendRequest.findUnique({
+          where: { id: requestId },
+        });
+        if (!request) throw new Error('Friend request not found');
+    
+        await prisma.$transaction(async (tx) => {
+          await tx.friendRequest.update({
+            where: { id: requestId },
+            data: { status },
+          });
+    
+          if (status === 'ACCEPTED') {
+            // Create friend relationship for both users
+            await tx.friend.createMany({
+              data: [
+                { userId: request.senderId, friendId: request.receiverId },
+                { userId: request.receiverId, friendId: request.senderId },
+              ],
+            });
+          }
+        });
+      }
+
+
+      
   }
