@@ -160,4 +160,23 @@ export class UserService {
   }
 
 
+    // Query Methods
+    async getUserById(userId: string): Promise<Omit<User, 'password'> | null> {
+        return await prisma.user.findUnique({
+          where: { id: userId },
+          select: {
+            id: true,
+            username: true,
+            email: true,
+            name: true,
+            bio: true,
+            avatar: true,
+            status: true,
+            lastActive: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        });
+      }
+
   }
