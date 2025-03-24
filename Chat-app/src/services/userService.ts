@@ -59,5 +59,21 @@ export class UserService {
             }
         })
     }
+
+    async updatePassword(userId: string, oldPassword: string, newPassword: string): Promise<boolean> {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (!user) throw new Error('User not found');
+    
+        const isValid = await bcrypt.compare(oldPassword, user.password);
+        if (!isValid) throw new Error('Invalid password');
+    
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await prisma.user.update({
+          where: { id: userId },
+          data: { password: hashedPassword },
+        });
+    
+        return true;
+      }
   
   }
