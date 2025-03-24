@@ -179,4 +179,27 @@ export class UserService {
         });
       }
 
+      async getFriendList(userId: string): Promise<Array<Omit<User, 'password'>>> {
+        const friends = await prisma.friend.findMany({
+          where: { userId },
+          include: {
+            friend: {
+              select: {
+                id: true,
+                username: true,
+                email: true,
+                name: true,
+                bio: true,
+                avatar: true,
+                status: true,
+                lastActive: true,
+                createdAt: true,
+                updatedAt: true,
+              },
+            },
+          },
+        });
+        return friends.map(f => f.friend);
+      }
+
   }
