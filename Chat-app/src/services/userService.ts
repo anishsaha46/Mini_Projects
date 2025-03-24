@@ -124,5 +124,29 @@ export class UserService {
       }
 
 
-      
+  // Blocking Management
+  async blockUser(blockerId: string, blockedId: string, reason?: string): Promise<void> {
+    await prisma.$transaction(async (tx) => {
+      // Remove any existing friend relationships
+      await tx.friend.deleteMany({
+        where: {
+          OR: [
+            { userId: blockerId, friendId: blockedId },
+            { userId: blockedId, friendId: blockerId },
+          ],
+        },
+      });
+
+      // Create block relationship
+      await tx.blockedUser.create({
+        data: {
+          blockerId,
+          blockedId,
+          reason,
+        },
+      });
+    });
+  }
+
+
   }
