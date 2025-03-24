@@ -148,5 +148,16 @@ export class UserService {
     });
   }
 
+  async unblockUser(blockerId: string, blockedId: string): Promise<void> {
+    await prisma.blockedUser.delete({
+      where: {
+        blockerId_blockedId: {
+          blockerId,
+          blockedId,
+        },
+      },
+    });
+  }
+
 
   }
