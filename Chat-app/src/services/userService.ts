@@ -75,5 +75,26 @@ export class UserService {
     
         return true;
       }
+
+    //   friend Management
+    async sendFriendRequest(senderId: string, receiverId: string): Promise<FriendRequest> {
+        // Check if request already exists
+        const existingRequest = await prisma.friendRequest.findUnique({
+          where: {
+            senderId_receiverId: {
+              senderId,
+              receiverId,
+            },
+          },
+        });
+        if (existingRequest) throw new Error('Friend request already exists');
+    
+        return await prisma.friendRequest.create({
+          data: {
+            senderId,
+            receiverId,
+          },
+        });
+      }
   
   }
