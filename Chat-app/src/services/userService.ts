@@ -202,4 +202,28 @@ export class UserService {
         return friends.map(f => f.friend);
       }
 
-  }
+      async getBlockedUsers(userId: string): Promise<Array<Omit<User, 'password'>>> {
+        const blockedUsers = await prisma.blockedUser.findMany({
+          where: { blockerId: userId },
+          include: {
+            blocked: {
+              select: {
+                id: true,
+                username: true,
+                email: true,
+                name: true,
+                bio: true,
+                avatar: true,
+                status: true,
+                lastActive: true,
+                createdAt: true,
+                updatedAt: true,
+              },
+            },
+          },
+        });
+        return blockedUsers.map(b => b.blocked);
+      }
+    }
+
+  
